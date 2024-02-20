@@ -2,19 +2,19 @@ import React, { useContext } from 'react'
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import { Link, useNavigate } from 'react-router-dom';
-import { isAuthTokenContext } from '../contexts/ContextShare';
+import { tokenAuthContext } from '../contexts/ContextShare';
+
 
 function Header({ dashboard }) {
   const navigate = useNavigate()
 
-  const{isAuthToken, setIsAuthToken} = useContext(isAuthTokenContext)
-
+  const {isAuthorized, setIsAuthorized}= useContext(tokenAuthContext)
   const handleLogout = () => {
     //remove existing user details from browser
     sessionStorage.removeItem("existingUser")
     sessionStorage.removeItem("token")
     // api
-    setIsAuthToken(false)
+    setIsAuthorized(false)
     //navigate to home
     navigate('/')
 

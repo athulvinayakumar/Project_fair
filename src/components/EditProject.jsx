@@ -4,6 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 import { BASE_URL } from '../Services/baseUrl';
 import { editProjectAPI } from '../Services/allAPI';
 import { editProjectResponseContext } from '../contexts/ContextShare';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function EditProject({ project }) {
 
     const{editProjectResponse, setEditProjectResponse} = useContext(editProjectResponseContext)
@@ -51,7 +53,7 @@ function EditProject({ project }) {
         //image field will be always filled so check the other values
         const { id, title, language, overview, github, website, projectImage } = projectDetails
         if (!title || !language || !github || !website || !overview) {
-            alert('Please fill the form completely')
+            toast.warning('Please fill the form completely')
         }
         else {
             const reqBody = new FormData()
@@ -71,14 +73,13 @@ function EditProject({ project }) {
                 const result = await editProjectAPI(id, reqBody, reqHeader)
                 console.log(result);
                 if (result.status === 200) {
-                    alert('added')
+                    toast.success("Edited Succesfully")
                     handleClose()
-                    //pass the response to myProject component
                     setEditProjectResponse(result.data)
                 }
                 else {
                     console.log(result);
-                    alert(result.response.data)
+                    toast.error(result.response.data)
                 }
             }
             else {
@@ -153,6 +154,7 @@ function EditProject({ project }) {
                     </Button>
                     <Button variant="success" onClick={handleUpdate}>update</Button>
                 </Modal.Footer>
+                <ToastContainer position='top-center' theme='colored' autoClose={2000} />
             </Modal>
         </>
     )

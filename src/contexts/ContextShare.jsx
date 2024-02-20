@@ -6,7 +6,7 @@ export const addProjectResponseContext = createContext()
 // edit
 export const editProjectResponseContext = createContext()
 
-export const isAuthTokenContext  = createContext()
+export const tokenAuthContext= createContext()
 
 // predefined prop - children is used to share data between all components
 
@@ -16,16 +16,16 @@ function ContextShare({ children }) {
 
   const [editProjectResponse, setEditProjectResponse] = useState({})
 
-  const [isAuthToken, setIsAuthToken] = useState(false)
+  const [isAuthorized, setIsAuthorized]= useState(true)
 
   return (
     <>
       {/* value to be shared have to be mentioned in value attribute */}
       <addProjectResponseContext.Provider value={{ addProjectResponse, setAddProjectResponse }}>
         <editProjectResponseContext.Provider value={{ editProjectResponse, setEditProjectResponse }}>
-          <isAuthTokenContext.Provider value={{isAuthToken, setIsAuthToken}}>
+        <tokenAuthContext.Provider value={{isAuthorized, setIsAuthorized}}> 
           {children}
-          </isAuthTokenContext.Provider>
+          </tokenAuthContext.Provider>
         </editProjectResponseContext.Provider>
       </addProjectResponseContext.Provider>
     </>

@@ -4,11 +4,12 @@ import { Link, json, useNavigate } from 'react-router-dom'
 import { loginAPI, registerAPI } from '../Services/allAPI';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { isAuthTokenContext } from '../contexts/ContextShare';
+import { tokenAuthContext } from '../contexts/ContextShare';
+
 
 function Auth({ register }) {
 
-    const { isAuthToken, setIsAuthToken } = useContext(isAuthTokenContext)
+    const {isAuthorized, setIsAuthorized} = useContext(tokenAuthContext)
     // create a state to hold value of user registration details
     const [userData, setUserData] = useState({
         username: "",
@@ -68,12 +69,12 @@ function Auth({ register }) {
                 // alert
 
                 toast.success("Login Succesful")
-                setIsAuthToken(true)
+               
                 //  store
 
                 sessionStorage.setItem("existingUser", JSON.stringify(res.data.existingUser))
                 sessionStorage.setItem("token", res.data.token)
-
+                setIsAuthorized(true)
                 //  reset state
                 setUserData({
                     email: "",
