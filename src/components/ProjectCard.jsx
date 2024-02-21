@@ -16,7 +16,7 @@ function ProjectCard({project}) {
   return (
     <>
     <Card className='shadow mb-5 btn' onClick={handleShow}>
-      <Card.Img variant="top"  src={project?`${BASE_URL}/uploads/${project.projectImage}`:video}/>
+      <Card.Img variant="top" height={'250px'} src={project?`${BASE_URL}/uploads/${project.projectImage}`:video}/>
       <Card.Body>
         <Card.Title>{project.title} </Card.Title> 
       </Card.Body>
@@ -35,7 +35,7 @@ function ProjectCard({project}) {
         <Modal.Body>
           <Row>
             <Col  md={6}>
-               <img height={"100%"} src={project?`${BASE_URL}/uploads/${project.projectImage}`:video} alt="no image"  style={{height:'200px'}} className='img-fluid'/>
+               <img src={project?`${BASE_URL}/uploads/${project.projectImage}`:video} alt="no image"  style={{height:'200px'}} className='img-fluid'/>
             </Col>
             <Col md={6}>
                 <h2>{project.title}</h2>
